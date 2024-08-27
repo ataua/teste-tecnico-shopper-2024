@@ -1,0 +1,1 @@
+console.log(`Key = ${process.env.KEY}`);
