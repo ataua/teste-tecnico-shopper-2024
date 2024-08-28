@@ -1,44 +1,46 @@
+version: "4.2"
+
 services:
-  backend:
-    container_name: shopper-backend
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-    ports:
-      - 3000:3000
-    command: npm run start
-    depends_on:
-      - db
-    networks:
-      - shopper
+    backend:
+        container_name: shopper-backend
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+        ports:
+            - 3000:3000
+        command: npm run dev
+        depends_on:
+            - db
+        networks:
+            - shopper
 
-  db:
-    image: postgres
-    restart: on-failure
-    container_name: shopper-postgres
-    volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: postgres
-    networks:
-      - shopper
+    db:
+        image: postgres
+        restart: on-failure
+        container_name: shopper-postgres
+        volumes:
+            - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
+        networks:
+            - shopper
 
-  adminer:
-    image: adminer
-    restart: on-failure
-    container_name: shopper-adminer
-    ports:
-      - 8080:8080
-    networks:
-      - shopper
-    depends_on:
-      - db
+    adminer:
+        image: adminer
+        restart: on-failure
+        container_name: shopper-adminer
+        ports:
+            - 8080:8080
+        networks:
+            - shopper
+        depends_on:
+            - db
 
 networks:
-  shopper:
-    name: shopper
-    driver: bridge
+    shopper:
+        name: shopper
+        driver: bridge

@@ -1,10 +1,16 @@
 {
+  "ts-node": {
+    "files": true,
+    "esm": true
+  },
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
+    "outDir": "./dist"
   },
   "watchOptions": {
     "watchDirectory": "useFsEvents",

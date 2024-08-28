@@ -1,26 +1,23 @@
 {
-  "name": "water-bill",
+  "name": "water-and-gas-bill",
   "version": "1.0.0",
   "decription": "teste técnico backend para shopper.com.br 2024",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "keywords": [],
   "author": "Atauã Pinali Doederlein <ataua.doederlein@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "dev": "nodemon index.ts",
-    "start": "node index.ts",
-    "build": "tsc --build"
+    "dev": "nodemon --exec ts-node --esm ./src/index.ts"
   },
   "dependencies": {
     "express": "^4.19.2",
     "pg": "^8.12.0",
+    "prisma": "^5.19.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.4",
-    "prisma": "^5.19.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "@types/node": "^22.5.0",
