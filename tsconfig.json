@@ -10,7 +10,13 @@
     "esModuleInterop": true,
     "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "watchOptions": {
     "watchDirectory": "useFsEvents",
