@@ -14,14 +14,17 @@ datasource db {
 }
 
 model Customer {
-  id      String    @id @default(uuid())
-  Measure Measure[]
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  Measures Measure[]
 }
 
 model Measure {
-  id    String   @id @default(uuid())
-  value Int
-  date  DateTime
+  id          String   @id @default(uuid())
+  value       Int
+  date        DateTime
+  isConfirmed Boolean  @default(false)
 
   customer_id String
   Customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
