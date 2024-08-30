@@ -10,6 +10,7 @@
     "dev": "nodemon --exec ts-node --esm ./src/index.ts"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.17.1",
     "@prisma/client": "^5.19.0",
     "axios": "^1.7.5",
     "class-validator": "^0.14.1",
