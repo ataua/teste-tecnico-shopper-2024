@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 const measureController = {
     checkImage: async (req: Request, res: Response) => {
         const fileCheck = await measureService.check(req.body)
-        if (!!fileCheck.error_code) return res.status(400).json(fileCheck)
+        if (!!fileCheck.error?.error_code) return res.status(400).json(fileCheck)
         res.json(fileCheck)
     },
 
