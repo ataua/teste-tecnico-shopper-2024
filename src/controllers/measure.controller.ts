@@ -15,8 +15,10 @@ const measureController = {
     },
 
     listMeasuresByConsumerCode: async (req: Request, res: Response) => {
-        const result = await measureService.listByConsumerCode(req.params.id)
-        res.status(result.error_number ?? 200).json(result)
+        const result = await measureService.listByConsumerCode(req)
+        // @ts-ignore
+        if(!!result[0].error_number) return res.status(result[0].error_number).json(result[0])
+        return res.status(200).json(result)
     }
 }
 

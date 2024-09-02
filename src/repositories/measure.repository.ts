@@ -27,15 +27,23 @@ const measureRepository = {
         try {
             return await prisma.measure.findUnique({ where: { measure_uuid } }) || nullData
         } catch (error: any) {
+            console.error({ error })
             return nullData
         }
     },
 
-    findAll: async (customer_code: string) => {
+    findAll: async (customer_code: string, measure_type?: MeasureType) => {
         try {
-            return await prisma.measure.findMany({ where: { customer_code }, orderBy: { measure_datetime: 'desc' } }) || {}
+            return await prisma.measure.findMany({
+                where: {
+                    customer_code,
+                    ...(measure_type && { measure_type: measure_type.toLocaleUpperCase() as MeasureType })
+                },
+                orderBy: { measure_datetime: 'desc' }
+            }) || []
         } catch (error: any) {
-            return { data: {}, error: error.message }
+            console.error({ error })
+            return []
         }
     },
 
@@ -50,7 +58,8 @@ const measureRepository = {
                 }
             })
         } catch (error: any) {
-            return { data: {}, error: error.message }
+            console.error({ error })
+            return nullData
         }
     },
 
@@ -59,8 +68,8 @@ const measureRepository = {
             return await prisma.measure.update({
                 where: { measure_uuid },
                 data: {
-                    has_confirmed: true, 
-                    measure_value
+                    has_confirmed: true,
+                    measure_value,
                 }
             })
         } catch (error: any) {

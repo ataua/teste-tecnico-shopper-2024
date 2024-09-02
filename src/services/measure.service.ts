@@ -1,7 +1,9 @@
 import measureRepository from '../repositories/measure.repository';
+import { Request } from 'express';
 import { checkIsImage } from '../utils/image';
 import type { IMeasure } from '../entities/measure.d.ts';
 import checkAPI from '../utils/gemini';
+import { MeasureType } from '@prisma/client';
 
 
 const measureService = {
@@ -102,16 +104,32 @@ const measureService = {
         }
     },
 
-    listByConsumerCode: (consumer_code: string) => {
-        return {
-            data: {
-                image_url: null,
-                measure_value: null,
-                measure_uuid: null
-            },
-            error_number: 0,
-            error_code: 'Not implemented',
-            error_description: 'Not implemented'
+    listByConsumerCode: async (req: Request) => {
+        try {
+            const { customer_code } = req.params
+            let { measure_type } = req.query || null
+            if (!!measure_type && typeof measure_type === 'string') measure_type = measure_type.toLocaleUpperCase()
+
+            if (!!measure_type && !['WATER', 'GAS'].includes(measure_type!.toString().toUpperCase())) return [{
+                error_number: 400,
+                error_code: 'INVALID_TYPE',
+                error_description: 'Tipo de medição não permitida'
+            }]
+            const measures = await measureRepository.findAll(customer_code, measure_type as MeasureType)
+            if (!measures.length) return [{
+                error_number: 404,
+                error_code: 'MEASURES_NOT_FOUND',
+                error_description: 'Nenhuma leitura encontrada'
+            }]
+            return measures
+
+        } catch (error) {
+            return [{
+                error_number: error.status ?? 500,
+                error_code: 'ERROR',
+                error_description: error.statusText ?? error.message
+            }]
+
         }
     }
 }
