@@ -10,18 +10,18 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // Como não sei se o .env gerado para testes terá a variável DATABASE_URL, deixo a string de conexão aqui
+  url      = "postgresql://postgres:postgres@shopper-postgres/shopper?schema=public"
 }
 
 model Measure {
-
   measure_uuid     String      @id @default(uuid())
+  measure_uri      String
   measure_datetime DateTime    @db.Date
   measure_value    Int
   measure_type     MeasureType
   has_confirmed    Boolean     @default(false)
   customer_code    String
-
 }
 
 enum MeasureType {
