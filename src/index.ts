@@ -1,5 +1,8 @@
-require('dotenv').config()
-import express from 'express'
+// TODO: convert to esm import
+import dotenv from 'dotenv'
+dotenv.config()
+
+import express, { Request, Response, NextFunction} from 'express'
 import cors from 'cors'
 import measureController from './controllers/measure.controller'
 
@@ -9,11 +12,8 @@ const port = 3000
 app.use(cors())
 app.use(express.json())
 
-app.set('views', './src/views');
-app.set('view engine', 'ejs');
-
-app.get('/', (req, res, next) => {
-    res.render('index')
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+    res.json({message: "Teste técnico Shopper 2024", candidato: "Atauã Pinali Doederlein"})
 })
 
 app.post('/upload', measureController.checkImage)
@@ -21,5 +21,5 @@ app.patch('/confirm', measureController.confirmMeasure)
 app.get('/{id}/list', measureController.listMeasuresByConsumerCode)
 
 app.listen(port, () => {
-    console.log(`Servidor web rodando na porta ${port}.`)
+    console.info(`Servidor web rodando na porta ${port}.`)
 })
