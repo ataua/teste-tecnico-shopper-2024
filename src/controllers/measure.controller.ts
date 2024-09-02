@@ -1,23 +1,23 @@
 
-import measureService from '../services/measure.service';
 import { Request, Response } from 'express';
+import measureService from '../services/measure.service';
 
 const measureController = {
     checkImage: async (req: Request, res: Response) => {
         const fileCheck = await measureService.check(req.body)
-        if (!!fileCheck.error?.error_code) return res.status(400).json(fileCheck)
-        res.json(fileCheck)
+        res.status(fileCheck.error_number ?? 200).json(fileCheck)
     },
 
 
     confirmMeasure: async (req: Request, res: Response) => {
         const result = await measureService.confirm(req.body)
-        res.json(result)
+        return res.status(result.error_number ?? 200).json(result)
     },
 
     listMeasuresByConsumerCode: async (req: Request, res: Response) => {
         const result = await measureService.listByConsumerCode(req.params.id)
-        res.json(result)
+        res.status(result.error_number ?? 200).json(result)
     }
 }
+
 export default measureController
