@@ -8,7 +8,8 @@ services:
             - .:/app
         ports:
             - 3000:3000
-        command: npm run dev
+        user: node
+        command: sh -c "npm install && npx prisma migrate deploy && tail -f /dev/null"
         depends_on:
             - db
         networks:
