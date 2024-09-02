@@ -1,25 +1,30 @@
 {
   "ts-node": {
-    "files": true,
-    "esm": true
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
   },
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "NodeNext",
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "watchOptions": {
-    "watchDirectory": "useFsEvents",
-    "excludeDirectories": ["**/node_modules", "**/.git"]
-  }
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "forceConsistentCasingInFileNames": true,  
+        "moduleSuffixes": [".ts"], 
+        "typeRoots": ["src/entities", "./node_modules/@types"],
+        "sourceMap": true,
+        "strict": true, 
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": ["src/**.*"],
+    "exclude": ["node_modules", ".git", ".vscode"]
 }
